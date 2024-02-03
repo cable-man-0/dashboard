@@ -4,6 +4,19 @@ import plotly.express as px
 import numpy as np
 import requests
 
+# Function to detect anomalies based on thresholds for each feature
+def detect_anomalies(data, thresholds):
+    anomalies = pd.DataFrame()
+    for column, threshold in thresholds.items():
+        anomalies[column] = data[column] > threshold
+    return anomalies
+
+# Function to display anomaly details in a popup message
+def show_anomaly_details(data, anomaly_indices):
+    for idx in anomaly_indices:
+        st.write(f"Anomalies detected at index {idx}:")
+        st.write(data.iloc[idx])
+
 # Main function
 def main():
     # Set page title and icon
@@ -14,7 +27,7 @@ def main():
 
     # Title and description
     st.title("Anomaly Detection App")
-    st.write("Upload a CSV dataset and choose the features to run anomaly detection on. You can also set thresholds for anomaly detection for each numerical feature.")
+    st.write("Upload a CSV dataset and choose the type of graph to visualize. You can also set thresholds for anomaly detection for each numerical feature.")
 
     # Upload CSV dataset
     uploaded_file = st.file_uploader("Upload CSV dataset", type=["csv"])
@@ -37,31 +50,29 @@ def main():
         # Select graph type
         graph_type = st.sidebar.selectbox("Select Graph Type", ["Line Chart", "Scatter Plot"])
 
-        # Select features for anomaly detection
-        selected_features = st.sidebar.multiselect("Select Features for Anomaly Detection", df.columns.tolist())
-
-        # Create threshold sliders for selected features
+        # Create threshold sliders for each numerical feature
         thresholds = {}
-        for feature in selected_features:
-            thresholds[feature] = st.sidebar.slider(f"Threshold for {feature}", min_value=0.0, max_value=100.0, value=50.0)
+        numeric_columns = df.select_dtypes(include=[np.number])
+        for column in numeric_columns.columns:
+            thresholds[column] = st.sidebar.slider(f"Threshold for {column}", min_value=0.0, max_value=100.0, value=50.0)
 
         # Detect anomalies
-        if selected_features:
-            # Filter selected features (excluding 'date')
-            numeric_columns = df[selected_features]
-
-            # Send selected features and thresholds to the backend for anomaly detection
-            response = requests.post('http://127.0.0.1:5000/detect_anomalies', json={'data': numeric_columns.to_dict(orient='list'), 'thresholds': thresholds})
+        if not numeric_columns.empty:
+            response = requests.post('http://127.0.0.1:5000/detect_anomalies', json=numeric_columns.to_dict(orient='list'))
             if response.status_code == 200:
-                anomaly_indices = response.json()
-                if anomaly_indices:
+                anomaly_predictions = response.json()
+                anomaly_indices = np.where(anomaly_predictions)[0]
+            
+                # Display popup message if anomalies are detected
+                if len(anomaly_indices) > 0:
                     st.error("Anomalies detected! See details below.")
-                    st.write("Anomaly Indices:", anomaly_indices)
+                    show_anomaly_details(df, anomaly_indices)
                 else:
-                    st.success("No anomalies detected.")
+                    st.error("No anomalies detected.")
             else:
                 st.error("An error occurred during anomaly detection.")
 
+        # Visualize dataset based on graph type
         for column in numeric_columns.columns:
             chart_placeholder = st.empty()
 
