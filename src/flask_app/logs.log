@@ -1,0 +1,172 @@
+2024-02-03 13:18:18,397:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-03 13:18:18,397:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-03 13:18:18,398:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-03 13:18:18,398:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-03 13:18:27,722:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-03 13:18:27,723:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-03 13:18:27,723:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-03 13:18:27,724:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-03 13:20:13,568:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-03 13:20:13,568:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-03 13:20:13,569:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-03 13:20:13,569:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-03 13:20:24,880:INFO:PyCaret AnomalyExperiment
+2024-02-03 13:20:24,888:INFO:Logging name: anomaly-default-name
+2024-02-03 13:20:24,889:INFO:ML Usecase: MLUsecase.ANOMALY
+2024-02-03 13:20:24,889:INFO:version 3.2.0
+2024-02-03 13:20:24,891:INFO:Initializing setup()
+2024-02-03 13:20:24,893:INFO:self.USI: c46f
+2024-02-03 13:20:24,900:INFO:self._variable_keys: {'exp_id', 'X', 'data', 'gpu_n_jobs_param', '_available_plots', 'html_param', 'pipeline', 'memory', 'gpu_param', 'USI', 'log_plots_param', 'seed', 'n_jobs_param', 'idx', 'logging_param', '_ml_usecase', 'exp_name_log'}
+2024-02-03 13:20:24,900:INFO:Checking environment
+2024-02-03 13:20:24,902:INFO:python_version: 3.11.2
+2024-02-03 13:20:24,903:INFO:python_build: ('main', 'Mar 13 2023 12:18:29')
+2024-02-03 13:20:24,904:INFO:machine: x86_64
+2024-02-03 13:20:24,914:INFO:platform: Linux-6.5.0-13parrot1-amd64-x86_64-with-glibc2.36
+2024-02-03 13:20:24,916:INFO:Memory: svmem(total=8227385344, available=3360141312, percent=59.2, used=3874201600, free=218615808, active=4189130752, inactive=2625695744, buffers=8192, cached=4134559744, shared=655556608, slab=558202880)
+2024-02-03 13:20:24,921:INFO:Physical Core: 2
+2024-02-03 13:20:24,921:INFO:Logical Core: 4
+2024-02-03 13:20:24,922:INFO:Checking libraries
+2024-02-03 13:20:24,922:INFO:System:
+2024-02-03 13:20:24,924:INFO:    python: 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0]
+2024-02-03 13:20:24,924:INFO:executable: /home/teemo/Desktop/pfe/env/bin/python3
+2024-02-03 13:20:24,925:INFO:   machine: Linux-6.5.0-13parrot1-amd64-x86_64-with-glibc2.36
+2024-02-03 13:20:24,925:INFO:PyCaret required dependencies:
+2024-02-03 13:20:26,844:WARNING:/home/teemo/Desktop/pfe/env/lib/python3.11/site-packages/dask/dataframe/_pyarrow_compat.py:23: UserWarning: You are using pyarrow version 10.0.1 which is known to be insecure. See https://www.cve.org/CVERecord?id=CVE-2023-47248 for further details. Please upgrade to pyarrow>=14.0.1 or install pyarrow-hotfix to patch your current version.
+  warnings.warn(
+
+2024-02-03 13:20:28,817:INFO:                 pip: 23.3.2
+2024-02-03 13:20:28,817:INFO:          setuptools: 66.1.1
+2024-02-03 13:20:28,818:INFO:             pycaret: 3.2.0
+2024-02-03 13:20:28,820:INFO:             IPython: 8.21.0
+2024-02-03 13:20:28,821:INFO:          ipywidgets: 8.1.1
+2024-02-03 13:20:28,822:INFO:                tqdm: 4.66.1
+2024-02-03 13:20:28,823:INFO:               numpy: 1.25.2
+2024-02-03 13:20:28,823:INFO:              pandas: 1.5.3
+2024-02-03 13:20:28,824:INFO:              jinja2: 3.1.3
+2024-02-03 13:20:28,826:INFO:               scipy: 1.10.1
+2024-02-03 13:20:28,826:INFO:              joblib: 1.3.2
+2024-02-03 13:20:28,827:INFO:             sklearn: 1.2.2
+2024-02-03 13:20:28,828:INFO:                pyod: 1.1.2
+2024-02-03 13:20:28,830:INFO:            imblearn: 0.12.0
+2024-02-03 13:20:28,831:INFO:   category_encoders: 2.6.3
+2024-02-03 13:20:28,831:INFO:            lightgbm: 4.3.0
+2024-02-03 13:20:28,832:INFO:               numba: 0.58.1
+2024-02-03 13:20:28,833:INFO:            requests: 2.31.0
+2024-02-03 13:20:28,833:INFO:          matplotlib: 3.6.0
+2024-02-03 13:20:28,834:INFO:          scikitplot: 0.3.7
+2024-02-03 13:20:28,835:INFO:         yellowbrick: 1.5
+2024-02-03 13:20:28,835:INFO:              plotly: 5.18.0
+2024-02-03 13:20:28,836:INFO:    plotly-resampler: Not installed
+2024-02-03 13:20:28,836:INFO:             kaleido: 0.2.1
+2024-02-03 13:20:28,837:INFO:           schemdraw: 0.15
+2024-02-03 13:20:28,838:INFO:         statsmodels: 0.14.1
+2024-02-03 13:20:28,838:INFO:              sktime: 0.21.1
+2024-02-03 13:20:28,839:INFO:               tbats: 1.1.3
+2024-02-03 13:20:28,839:INFO:            pmdarima: 2.0.4
+2024-02-03 13:20:28,840:INFO:              psutil: 5.9.8
+2024-02-03 13:20:28,841:INFO:          markupsafe: 2.1.4
+2024-02-03 13:20:28,842:INFO:             pickle5: Not installed
+2024-02-03 13:20:28,842:INFO:         cloudpickle: 3.0.0
+2024-02-03 13:20:28,843:INFO:         deprecation: 2.1.0
+2024-02-03 13:20:28,843:INFO:              xxhash: 3.4.1
+2024-02-03 13:20:28,844:INFO:           wurlitzer: 3.0.3
+2024-02-03 13:20:28,845:INFO:PyCaret optional dependencies:
+2024-02-03 13:20:29,172:INFO:                shap: 0.44.0
+2024-02-03 13:20:29,173:INFO:           interpret: Not installed
+2024-02-03 13:20:29,174:INFO:                umap: Not installed
+2024-02-03 13:20:29,175:INFO:     ydata_profiling: Not installed
+2024-02-03 13:20:29,176:INFO:  explainerdashboard: Not installed
+2024-02-03 13:20:29,176:INFO:             autoviz: Not installed
+2024-02-03 13:20:29,177:INFO:           fairlearn: Not installed
+2024-02-03 13:20:29,177:INFO:          deepchecks: Not installed
+2024-02-03 13:20:29,178:INFO:             xgboost: 2.0.3
+2024-02-03 13:20:29,178:INFO:            catboost: Not installed
+2024-02-03 13:20:29,179:INFO:              kmodes: Not installed
+2024-02-03 13:20:29,180:INFO:             mlxtend: Not installed
+2024-02-03 13:20:29,181:INFO:       statsforecast: 1.7.1
+2024-02-03 13:20:29,181:INFO:        tune_sklearn: Not installed
+2024-02-03 13:20:29,182:INFO:                 ray: Not installed
+2024-02-03 13:20:29,182:INFO:            hyperopt: Not installed
+2024-02-03 13:20:29,183:INFO:              optuna: Not installed
+2024-02-03 13:20:29,185:INFO:               skopt: Not installed
+2024-02-03 13:20:29,185:INFO:              mlflow: Not installed
+2024-02-03 13:20:29,185:INFO:              gradio: Not installed
+2024-02-03 13:20:29,185:INFO:             fastapi: Not installed
+2024-02-03 13:20:29,186:INFO:             uvicorn: Not installed
+2024-02-03 13:20:29,187:INFO:              m2cgen: Not installed
+2024-02-03 13:20:29,188:INFO:           evidently: Not installed
+2024-02-03 13:20:29,188:INFO:               fugue: 0.8.7
+2024-02-03 13:20:29,189:INFO:           streamlit: 1.31.0
+2024-02-03 13:20:29,190:INFO:             prophet: Not installed
+2024-02-03 13:20:29,191:INFO:None
+2024-02-03 13:20:29,192:INFO:Set up data.
+2024-02-03 13:20:29,204:INFO:Set up index.
+2024-02-03 13:20:29,204:INFO:Assigning column types.
+2024-02-03 13:20:29,214:INFO:Engine successfully changes for model 'kmeans' to 'sklearn'.
+2024-02-03 13:20:31,153:INFO:Engine successfully changes for model 'dbscan' to 'sklearn'.
+2024-02-03 13:20:31,162:INFO:Preparing preprocessing pipeline...
+2024-02-03 13:20:31,163:INFO:Set up simple imputation.
+2024-02-03 13:20:31,234:INFO:Finished creating preprocessing pipeline.
+2024-02-03 13:20:31,260:INFO:Pipeline: Pipeline(memory=FastMemory(location=/tmp/joblib),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['Temperature'],
+                                    transformer=SimpleImputer())),
+                ('categorical_imputer',
+                 TransformerWrapper(include=[],
+                                    transformer=SimpleImputer(strategy='most_frequent')))])
+2024-02-03 13:20:31,260:INFO:Creating final display dataframe.
+2024-02-03 13:20:31,335:INFO:Setup _display_container:                Description                 Value
+0               Session id                   123
+1      Original data shape              (534, 1)
+2   Transformed data shape              (534, 1)
+3         Numeric features                     1
+4               Preprocess                  True
+5          Imputation type                simple
+6       Numeric imputation                  mean
+7   Categorical imputation                  mode
+8                 CPU Jobs                    -1
+9                  Use GPU                 False
+10          Log Experiment                 False
+11         Experiment Name  anomaly-default-name
+12                     USI                  c46f
+2024-02-03 13:20:31,356:INFO:setup() successfully completed in 6.48s...............
+2024-02-03 13:20:31,357:INFO:Initializing create_model()
+2024-02-03 13:20:31,357:INFO:create_model(self=<pycaret.anomaly.oop.AnomalyExperiment object at 0x7feecdab7210>, estimator=iforest, num_clusters=4, fraction=0.05, ground_truth=None, round=4, fit_kwargs=None, experiment_custom_tags=None, verbose=True, system=True, add_to_model_list=True, raise_num_clusters=False, display=None, kwargs={})
+2024-02-03 13:20:31,358:INFO:Checking exceptions
+2024-02-03 13:20:31,417:INFO:Importing untrained model
+2024-02-03 13:20:31,419:INFO:Isolation Forest Imported successfully
+2024-02-03 13:20:31,423:INFO:Fitting Model
+2024-02-03 13:20:32,988:INFO:IForest(behaviour='new', bootstrap=False, contamination=0.05,
+    max_features=1.0, max_samples='auto', n_estimators=100, n_jobs=-1,
+    random_state=123, verbose=0)
+2024-02-03 13:20:32,989:INFO:create_models() successfully completed......................................
+2024-02-03 13:20:32,989:INFO:Uploading results into container
+2024-02-03 13:20:32,990:INFO:Uploading model into container now
+2024-02-03 13:20:32,991:INFO:_master_model_container: 1
+2024-02-03 13:20:32,992:INFO:_display_container: 1
+2024-02-03 13:20:32,994:INFO:IForest(behaviour='new', bootstrap=False, contamination=0.05,
+    max_features=1.0, max_samples='auto', n_estimators=100, n_jobs=-1,
+    random_state=123, verbose=0)
+2024-02-03 13:20:32,995:INFO:create_model() successfully completed......................................
+2024-02-03 13:20:33,238:INFO:Initializing assign_model()
+2024-02-03 13:20:33,239:INFO:assign_model(self=<pycaret.anomaly.oop.AnomalyExperiment object at 0x7feecdab7210>, model=IForest(behaviour='new', bootstrap=False, contamination=0.05,
+    max_features=1.0, max_samples='auto', n_estimators=100, n_jobs=-1,
+    random_state=123, verbose=0), transformation=False, score=True, verbose=True)
+2024-02-03 13:20:33,240:INFO:Checking exceptions
+2024-02-03 13:20:33,241:INFO:Determining Trained Model
+2024-02-03 13:20:33,243:INFO:Trained Model : Isolation Forest
+2024-02-03 13:20:33,244:INFO:Copying data
+2024-02-03 13:20:33,252:INFO:(534, 3)
+2024-02-03 13:20:33,253:INFO:assign_model() successfully completed......................................
