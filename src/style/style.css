@@ -1,0 +1,84 @@
+/* style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.sidebar .sidebar-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .sidebar-content h2 {
+    color: #333333;
+    margin-bottom: 15px;
+}
+
+.sidebar .sidebar-content label {
+    color: #666666;
+}
+
+.main-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.upload-btn {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-btn:hover {
+    background-color: #0056b3;
+}
+
+.upload-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.anomaly-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.anomaly-table th, .anomaly-table td {
+    padding: 8px;
+    border: 1px solid #dddddd;
+    text-align: left;
+}
+
+.anomaly-table th {
+    background-color: #f2f2f2;
+}
+
+.anomaly-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.anomaly-table tr:hover {
+    background-color: #e5e5e5;
+}
+
+.chart-placeholder {
+    margin-bottom: 20px;
+}

@@ -1,88 +1,40 @@
-import streamlit as st
+from flask import Flask, request, jsonify
+from pycaret.anomaly import *
 import pandas as pd
-import plotly.express as px
-import numpy as np
-import requests
 
-# Function to detect anomalies based on thresholds for each feature
-def detect_anomalies(data, thresholds):
-    anomalies = pd.DataFrame()
-    for column, threshold in thresholds.items():
-        anomalies[column] = data[column] > threshold
-    return anomalies
+app = Flask(__name__)
 
-# Function to display anomaly details in a popup message
-def show_anomaly_details(data, anomaly_indices):
-    for idx in anomaly_indices:
-        st.write(f"Anomalies detected at index {idx}:")
-        st.write(data.iloc[idx])
+# Endpoint for anomaly detection
+@app.route('/detect_anomalies', methods=['POST'])
+def detect_anomalies():
+    try:
+        # Check if the content type is JSON
+        if request.headers['Content-Type'] != 'application/json':
+            return jsonify({'error': 'Invalid content type. Expected JSON data.'}), 400
 
-# Main function
-def main():
-    # Set page title and icon
-    st.set_page_config(
-        page_title="Anomaly Detection App",
-        page_icon="📊"
-    )
+        # Get JSON data from request
+        data = request.json
+        if 'data' not in data or 'thresholds' not in data:
+            return jsonify({'error': 'Invalid JSON format. Expected "data" and "thresholds" keys.'}), 400
 
-    # Title and description
-    st.title("Anomaly Detection App")
-    st.write("Upload a CSV dataset and choose the type of graph to visualize. You can also set thresholds for anomaly detection for each numerical feature.")
+        # Convert data to DataFrame
+        df = pd.DataFrame(data['data'])
 
-    # Upload CSV dataset
-    uploaded_file = st.file_uploader("Upload CSV dataset", type=["csv"])
+        # Initialize the PyCaret anomaly detection module
+        exp_ano101 = setup(df, session_id=123)
 
-    if uploaded_file is not None:
-        # Read CSV dataset
-        df = pd.read_csv(uploaded_file)
+        # Create an anomaly detection model
+        iforest = create_model('iforest')
 
-        # Convert date column to datetime type
-        if 'date' in df.columns:
-            df['date'] = pd.to_datetime(df['date'])
+        # Assign the anomalies to the original dataset
+        df_anomalies = assign_model(iforest)
 
-        # Display dataset
-        st.subheader("Dataset")
-        st.dataframe(df)  # or st.table(df)
+        # Extract anomaly indices
+        anomaly_indices = df_anomalies[df_anomalies['Anomaly'] == 1].index.tolist()
 
-        # Sidebar for user interaction
-        st.sidebar.title("Settings")
+        return jsonify(anomaly_indices), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
-        # Select graph type
-        graph_type = st.sidebar.selectbox("Select Graph Type", ["Line Chart", "Scatter Plot"])
-
-        # Create threshold sliders for each numerical feature
-        thresholds = {}
-        numeric_columns = df.select_dtypes(include=[np.number])
-        for column in numeric_columns.columns:
-            thresholds[column] = st.sidebar.slider(f"Threshold for {column}", min_value=0.0, max_value=100.0, value=50.0)
-
-        # Detect anomalies
-        if not numeric_columns.empty:
-            response = requests.post('http://127.0.0.1:5000/detect_anomalies', json=numeric_columns.to_dict(orient='list'))
-            if response.status_code == 200:
-                anomaly_predictions = response.json()
-                anomaly_indices = np.where(anomaly_predictions)[0]
-            
-                # Display popup message if anomalies are detected
-                if len(anomaly_indices) > 0:
-                    st.error("Anomalies detected! See details below.")
-                    show_anomaly_details(df, anomaly_indices)
-                else:
-                    st.error("No anomalies detected.")
-            else:
-                st.error("An error occurred during anomaly detection.")
-
-        # Visualize dataset based on graph type
-        for column in numeric_columns.columns:
-            chart_placeholder = st.empty()
-
-            if graph_type == "Line Chart":
-                fig = px.line(df, x='date', y=column) if 'date' in df.columns else px.line(df, x=df.index, y=column)
-            elif graph_type == "Scatter Plot":
-                fig = px.scatter(df, x='date', y=column) if 'date' in df.columns else px.scatter(df, x=df.index, y=column)
-            
-            chart_placeholder.plotly_chart(fig)
-
-# Run the app
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    app.run(debug=True)
