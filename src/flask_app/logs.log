@@ -10195,3 +10195,365 @@
 2024-02-05 12:39:12,005:INFO:Copying data
 2024-02-05 12:39:12,010:INFO:(534, 3)
 2024-02-05 12:39:12,011:INFO:assign_model() successfully completed......................................
+2024-02-06 10:13:49,946:INFO:PyCaret AnomalyExperiment
+2024-02-06 10:13:49,963:INFO:Logging name: anomaly-default-name
+2024-02-06 10:13:49,978:INFO:ML Usecase: MLUsecase.ANOMALY
+2024-02-06 10:13:49,979:INFO:version 3.2.0
+2024-02-06 10:13:49,979:INFO:Initializing setup()
+2024-02-06 10:13:49,981:INFO:self.USI: 0f17
+2024-02-06 10:13:49,982:INFO:self._variable_keys: {'pipeline', '_available_plots', 'logging_param', 'memory', 'html_param', 'n_jobs_param', 'X', 'exp_name_log', 'gpu_n_jobs_param', 'USI', 'idx', 'log_plots_param', 'gpu_param', '_ml_usecase', 'data', 'seed', 'exp_id'}
+2024-02-06 10:13:49,991:INFO:Checking environment
+2024-02-06 10:13:49,994:INFO:python_version: 3.11.2
+2024-02-06 10:13:49,996:INFO:python_build: ('main', 'Mar 13 2023 12:18:29')
+2024-02-06 10:13:49,997:INFO:machine: x86_64
+2024-02-06 10:13:50,005:INFO:platform: Linux-6.5.0-13parrot1-amd64-x86_64-with-glibc2.36
+2024-02-06 10:13:50,010:INFO:Memory: svmem(total=8227385344, available=2968002560, percent=63.9, used=4209987584, free=537235456, active=4731224064, inactive=1933934592, buffers=8192, cached=3480154112, shared=728686592, slab=585101312)
+2024-02-06 10:13:50,025:INFO:Physical Core: 2
+2024-02-06 10:13:50,026:INFO:Logical Core: 4
+2024-02-06 10:13:50,026:INFO:Checking libraries
+2024-02-06 10:13:50,027:INFO:System:
+2024-02-06 10:13:50,028:INFO:    python: 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0]
+2024-02-06 10:13:50,028:INFO:executable: /home/teemo/Desktop/pfe/env/bin/python3
+2024-02-06 10:13:50,029:INFO:   machine: Linux-6.5.0-13parrot1-amd64-x86_64-with-glibc2.36
+2024-02-06 10:13:50,030:INFO:PyCaret required dependencies:
+2024-02-06 10:13:50,055:INFO:                 pip: 23.3.2
+2024-02-06 10:13:50,056:INFO:          setuptools: 66.1.1
+2024-02-06 10:13:50,057:INFO:             pycaret: 3.2.0
+2024-02-06 10:13:50,063:INFO:             IPython: 8.21.0
+2024-02-06 10:13:50,075:INFO:          ipywidgets: 8.1.1
+2024-02-06 10:13:50,076:INFO:                tqdm: 4.66.1
+2024-02-06 10:13:50,076:INFO:               numpy: 1.25.2
+2024-02-06 10:13:50,078:INFO:              pandas: 1.5.3
+2024-02-06 10:13:50,080:INFO:              jinja2: 3.1.3
+2024-02-06 10:13:50,080:INFO:               scipy: 1.10.1
+2024-02-06 10:13:50,080:INFO:              joblib: 1.3.2
+2024-02-06 10:13:50,082:INFO:             sklearn: 1.2.2
+2024-02-06 10:13:50,083:INFO:                pyod: 1.1.2
+2024-02-06 10:13:50,085:INFO:            imblearn: 0.12.0
+2024-02-06 10:13:50,089:INFO:   category_encoders: 2.6.3
+2024-02-06 10:13:50,090:INFO:            lightgbm: 4.3.0
+2024-02-06 10:13:50,091:INFO:               numba: 0.58.1
+2024-02-06 10:13:50,093:INFO:            requests: 2.31.0
+2024-02-06 10:13:50,093:INFO:          matplotlib: 3.6.0
+2024-02-06 10:13:50,095:INFO:          scikitplot: 0.3.7
+2024-02-06 10:13:50,095:INFO:         yellowbrick: 1.5
+2024-02-06 10:13:50,096:INFO:              plotly: 5.18.0
+2024-02-06 10:13:50,097:INFO:    plotly-resampler: Not installed
+2024-02-06 10:13:50,098:INFO:             kaleido: 0.2.1
+2024-02-06 10:13:50,099:INFO:           schemdraw: 0.15
+2024-02-06 10:13:50,099:INFO:         statsmodels: 0.14.1
+2024-02-06 10:13:50,109:INFO:              sktime: 0.21.1
+2024-02-06 10:13:50,110:INFO:               tbats: 1.1.3
+2024-02-06 10:13:50,111:INFO:            pmdarima: 2.0.4
+2024-02-06 10:13:50,112:INFO:              psutil: 5.9.8
+2024-02-06 10:13:50,112:INFO:          markupsafe: 2.1.4
+2024-02-06 10:13:50,113:INFO:             pickle5: Not installed
+2024-02-06 10:13:50,114:INFO:         cloudpickle: 3.0.0
+2024-02-06 10:13:50,115:INFO:         deprecation: 2.1.0
+2024-02-06 10:13:50,116:INFO:              xxhash: 3.4.1
+2024-02-06 10:13:50,117:INFO:           wurlitzer: 3.0.3
+2024-02-06 10:13:50,117:INFO:PyCaret optional dependencies:
+2024-02-06 10:13:50,119:INFO:                shap: 0.44.0
+2024-02-06 10:13:50,128:INFO:           interpret: Not installed
+2024-02-06 10:13:50,129:INFO:                umap: Not installed
+2024-02-06 10:13:50,129:INFO:     ydata_profiling: Not installed
+2024-02-06 10:13:50,130:INFO:  explainerdashboard: Not installed
+2024-02-06 10:13:50,130:INFO:             autoviz: Not installed
+2024-02-06 10:13:50,130:INFO:           fairlearn: Not installed
+2024-02-06 10:13:50,130:INFO:          deepchecks: Not installed
+2024-02-06 10:13:50,131:INFO:             xgboost: 2.0.3
+2024-02-06 10:13:50,132:INFO:            catboost: Not installed
+2024-02-06 10:13:50,133:INFO:              kmodes: Not installed
+2024-02-06 10:13:50,133:INFO:             mlxtend: Not installed
+2024-02-06 10:13:50,134:INFO:       statsforecast: 1.7.1
+2024-02-06 10:13:50,135:INFO:        tune_sklearn: Not installed
+2024-02-06 10:13:50,135:INFO:                 ray: Not installed
+2024-02-06 10:13:50,136:INFO:            hyperopt: Not installed
+2024-02-06 10:13:50,137:INFO:              optuna: Not installed
+2024-02-06 10:13:50,138:INFO:               skopt: Not installed
+2024-02-06 10:13:50,139:INFO:              mlflow: Not installed
+2024-02-06 10:13:50,140:INFO:              gradio: Not installed
+2024-02-06 10:13:50,141:INFO:             fastapi: Not installed
+2024-02-06 10:13:50,142:INFO:             uvicorn: Not installed
+2024-02-06 10:13:50,142:INFO:              m2cgen: Not installed
+2024-02-06 10:13:50,143:INFO:           evidently: Not installed
+2024-02-06 10:13:50,144:INFO:               fugue: 0.8.7
+2024-02-06 10:13:50,144:INFO:           streamlit: 1.31.0
+2024-02-06 10:13:50,145:INFO:             prophet: Not installed
+2024-02-06 10:13:50,146:INFO:None
+2024-02-06 10:13:50,148:INFO:Set up data.
+2024-02-06 10:13:50,328:INFO:Set up index.
+2024-02-06 10:13:50,332:INFO:Assigning column types.
+2024-02-06 10:13:50,403:INFO:Engine successfully changes for model 'kmeans' to 'sklearn'.
+2024-02-06 10:13:50,431:INFO:Engine successfully changes for model 'dbscan' to 'sklearn'.
+2024-02-06 10:13:50,468:INFO:Preparing preprocessing pipeline...
+2024-02-06 10:13:50,470:INFO:Set up simple imputation.
+2024-02-06 10:13:50,697:INFO:Finished creating preprocessing pipeline.
+2024-02-06 10:13:50,733:INFO:Pipeline: Pipeline(memory=FastMemory(location=/tmp/joblib),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['Temperature'],
+                                    transformer=SimpleImputer())),
+                ('categorical_imputer',
+                 TransformerWrapper(include=[],
+                                    transformer=SimpleImputer(strategy='most_frequent')))])
+2024-02-06 10:13:50,734:INFO:Creating final display dataframe.
+2024-02-06 10:13:50,931:INFO:Setup _display_container:                Description                 Value
+0               Session id                   123
+1      Original data shape              (534, 1)
+2   Transformed data shape              (534, 1)
+3         Numeric features                     1
+4               Preprocess                  True
+5          Imputation type                simple
+6       Numeric imputation                  mean
+7   Categorical imputation                  mode
+8                 CPU Jobs                    -1
+9                  Use GPU                 False
+10          Log Experiment                 False
+11         Experiment Name  anomaly-default-name
+12                     USI                  0f17
+2024-02-06 10:13:50,983:INFO:setup() successfully completed in 1.13s...............
+2024-02-06 10:13:50,989:INFO:Initializing create_model()
+2024-02-06 10:13:50,989:INFO:create_model(self=<pycaret.anomaly.oop.AnomalyExperiment object at 0x7f7b4f55c750>, estimator=iforest, num_clusters=4, fraction=0.05, ground_truth=None, round=4, fit_kwargs=None, experiment_custom_tags=None, verbose=True, system=True, add_to_model_list=True, raise_num_clusters=False, display=None, kwargs={})
+2024-02-06 10:13:51,004:INFO:Checking exceptions
+2024-02-06 10:13:51,133:INFO:Importing untrained model
+2024-02-06 10:13:51,143:INFO:Isolation Forest Imported successfully
+2024-02-06 10:13:51,152:INFO:Fitting Model
+2024-02-06 10:13:53,862:INFO:IForest(behaviour='new', bootstrap=False, contamination=0.05,
+    max_features=1.0, max_samples='auto', n_estimators=100, n_jobs=-1,
+    random_state=123, verbose=0)
+2024-02-06 10:13:53,864:INFO:create_models() successfully completed......................................
+2024-02-06 10:13:53,870:INFO:Uploading results into container
+2024-02-06 10:13:53,871:INFO:Uploading model into container now
+2024-02-06 10:13:53,872:INFO:_master_model_container: 1
+2024-02-06 10:13:53,873:INFO:_display_container: 1
+2024-02-06 10:13:53,875:INFO:IForest(behaviour='new', bootstrap=False, contamination=0.05,
+    max_features=1.0, max_samples='auto', n_estimators=100, n_jobs=-1,
+    random_state=123, verbose=0)
+2024-02-06 10:13:53,877:INFO:create_model() successfully completed......................................
+2024-02-06 10:14:00,028:INFO:Initializing assign_model()
+2024-02-06 10:14:00,028:INFO:assign_model(self=<pycaret.anomaly.oop.AnomalyExperiment object at 0x7f7b4f55c750>, model=IForest(behaviour='new', bootstrap=False, contamination=0.05,
+    max_features=1.0, max_samples='auto', n_estimators=100, n_jobs=-1,
+    random_state=123, verbose=0), transformation=False, score=True, verbose=True)
+2024-02-06 10:14:00,034:INFO:Checking exceptions
+2024-02-06 10:14:00,034:INFO:Determining Trained Model
+2024-02-06 10:14:00,036:INFO:Trained Model : Isolation Forest
+2024-02-06 10:14:00,038:INFO:Copying data
+2024-02-06 10:14:00,049:INFO:(534, 3)
+2024-02-06 10:14:00,057:INFO:assign_model() successfully completed......................................
+2024-02-06 10:17:32,624:INFO:PyCaret AnomalyExperiment
+2024-02-06 10:17:32,625:INFO:Logging name: anomaly-default-name
+2024-02-06 10:17:32,625:INFO:ML Usecase: MLUsecase.ANOMALY
+2024-02-06 10:17:32,630:INFO:version 3.2.0
+2024-02-06 10:17:32,630:INFO:Initializing setup()
+2024-02-06 10:17:32,631:INFO:self.USI: 495e
+2024-02-06 10:17:32,631:INFO:self._variable_keys: {'pipeline', '_available_plots', 'logging_param', 'memory', 'html_param', 'n_jobs_param', 'X', 'exp_name_log', 'gpu_n_jobs_param', 'USI', 'idx', 'log_plots_param', 'gpu_param', '_ml_usecase', 'data', 'seed', 'exp_id'}
+2024-02-06 10:17:32,632:INFO:Checking environment
+2024-02-06 10:17:32,632:INFO:python_version: 3.11.2
+2024-02-06 10:17:32,634:INFO:python_build: ('main', 'Mar 13 2023 12:18:29')
+2024-02-06 10:17:32,636:INFO:machine: x86_64
+2024-02-06 10:17:32,636:INFO:platform: Linux-6.5.0-13parrot1-amd64-x86_64-with-glibc2.36
+2024-02-06 10:17:32,639:INFO:Memory: svmem(total=8227385344, available=2798567424, percent=66.0, used=4367745024, free=328081408, active=4898189312, inactive=1964339200, buffers=8192, cached=3531550720, shared=740364288, slab=585170944)
+2024-02-06 10:17:32,644:INFO:Physical Core: 2
+2024-02-06 10:17:32,645:INFO:Logical Core: 4
+2024-02-06 10:17:32,645:INFO:Checking libraries
+2024-02-06 10:17:32,646:INFO:System:
+2024-02-06 10:17:32,647:INFO:    python: 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0]
+2024-02-06 10:17:32,647:INFO:executable: /home/teemo/Desktop/pfe/env/bin/python3
+2024-02-06 10:17:32,648:INFO:   machine: Linux-6.5.0-13parrot1-amd64-x86_64-with-glibc2.36
+2024-02-06 10:17:32,649:INFO:PyCaret required dependencies:
+2024-02-06 10:17:32,650:INFO:                 pip: 23.3.2
+2024-02-06 10:17:32,651:INFO:          setuptools: 66.1.1
+2024-02-06 10:17:32,652:INFO:             pycaret: 3.2.0
+2024-02-06 10:17:32,653:INFO:             IPython: 8.21.0
+2024-02-06 10:17:32,654:INFO:          ipywidgets: 8.1.1
+2024-02-06 10:17:32,655:INFO:                tqdm: 4.66.1
+2024-02-06 10:17:32,656:INFO:               numpy: 1.25.2
+2024-02-06 10:17:32,657:INFO:              pandas: 1.5.3
+2024-02-06 10:17:32,658:INFO:              jinja2: 3.1.3
+2024-02-06 10:17:32,659:INFO:               scipy: 1.10.1
+2024-02-06 10:17:32,659:INFO:              joblib: 1.3.2
+2024-02-06 10:17:32,660:INFO:             sklearn: 1.2.2
+2024-02-06 10:17:32,660:INFO:                pyod: 1.1.2
+2024-02-06 10:17:32,661:INFO:            imblearn: 0.12.0
+2024-02-06 10:17:32,662:INFO:   category_encoders: 2.6.3
+2024-02-06 10:17:32,663:INFO:            lightgbm: 4.3.0
+2024-02-06 10:17:32,663:INFO:               numba: 0.58.1
+2024-02-06 10:17:32,664:INFO:            requests: 2.31.0
+2024-02-06 10:17:32,664:INFO:          matplotlib: 3.6.0
+2024-02-06 10:17:32,665:INFO:          scikitplot: 0.3.7
+2024-02-06 10:17:32,666:INFO:         yellowbrick: 1.5
+2024-02-06 10:17:32,667:INFO:              plotly: 5.18.0
+2024-02-06 10:17:32,669:INFO:    plotly-resampler: Not installed
+2024-02-06 10:17:32,670:INFO:             kaleido: 0.2.1
+2024-02-06 10:17:32,670:INFO:           schemdraw: 0.15
+2024-02-06 10:17:32,672:INFO:         statsmodels: 0.14.1
+2024-02-06 10:17:32,673:INFO:              sktime: 0.21.1
+2024-02-06 10:17:32,674:INFO:               tbats: 1.1.3
+2024-02-06 10:17:32,676:INFO:            pmdarima: 2.0.4
+2024-02-06 10:17:32,677:INFO:              psutil: 5.9.8
+2024-02-06 10:17:32,678:INFO:          markupsafe: 2.1.4
+2024-02-06 10:17:32,678:INFO:             pickle5: Not installed
+2024-02-06 10:17:32,678:INFO:         cloudpickle: 3.0.0
+2024-02-06 10:17:32,679:INFO:         deprecation: 2.1.0
+2024-02-06 10:17:32,679:INFO:              xxhash: 3.4.1
+2024-02-06 10:17:32,679:INFO:           wurlitzer: 3.0.3
+2024-02-06 10:17:32,680:INFO:PyCaret optional dependencies:
+2024-02-06 10:17:32,680:INFO:                shap: 0.44.0
+2024-02-06 10:17:32,681:INFO:           interpret: Not installed
+2024-02-06 10:17:32,683:INFO:                umap: Not installed
+2024-02-06 10:17:32,685:INFO:     ydata_profiling: Not installed
+2024-02-06 10:17:32,685:INFO:  explainerdashboard: Not installed
+2024-02-06 10:17:32,686:INFO:             autoviz: Not installed
+2024-02-06 10:17:32,686:INFO:           fairlearn: Not installed
+2024-02-06 10:17:32,687:INFO:          deepchecks: Not installed
+2024-02-06 10:17:32,689:INFO:             xgboost: 2.0.3
+2024-02-06 10:17:32,689:INFO:            catboost: Not installed
+2024-02-06 10:17:32,690:INFO:              kmodes: Not installed
+2024-02-06 10:17:32,691:INFO:             mlxtend: Not installed
+2024-02-06 10:17:32,692:INFO:       statsforecast: 1.7.1
+2024-02-06 10:17:32,693:INFO:        tune_sklearn: Not installed
+2024-02-06 10:17:32,694:INFO:                 ray: Not installed
+2024-02-06 10:17:32,695:INFO:            hyperopt: Not installed
+2024-02-06 10:17:32,696:INFO:              optuna: Not installed
+2024-02-06 10:17:32,697:INFO:               skopt: Not installed
+2024-02-06 10:17:32,698:INFO:              mlflow: Not installed
+2024-02-06 10:17:32,699:INFO:              gradio: Not installed
+2024-02-06 10:17:32,699:INFO:             fastapi: Not installed
+2024-02-06 10:17:32,701:INFO:             uvicorn: Not installed
+2024-02-06 10:17:32,702:INFO:              m2cgen: Not installed
+2024-02-06 10:17:32,703:INFO:           evidently: Not installed
+2024-02-06 10:17:32,703:INFO:               fugue: 0.8.7
+2024-02-06 10:17:32,704:INFO:           streamlit: 1.31.0
+2024-02-06 10:17:32,704:INFO:             prophet: Not installed
+2024-02-06 10:17:32,705:INFO:None
+2024-02-06 10:17:32,706:INFO:Set up data.
+2024-02-06 10:17:32,722:INFO:Set up index.
+2024-02-06 10:17:32,723:INFO:Assigning column types.
+2024-02-06 10:17:32,773:INFO:Engine successfully changes for model 'kmeans' to 'sklearn'.
+2024-02-06 10:17:32,783:INFO:Engine successfully changes for model 'dbscan' to 'sklearn'.
+2024-02-06 10:17:32,788:INFO:Preparing preprocessing pipeline...
+2024-02-06 10:17:32,788:INFO:Set up simple imputation.
+2024-02-06 10:17:32,867:INFO:Finished creating preprocessing pipeline.
+2024-02-06 10:17:32,902:INFO:Pipeline: Pipeline(memory=FastMemory(location=/tmp/joblib),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['Temperature', 'Humidity'],
+                                    transformer=SimpleImputer())),
+                ('categorical_imputer',
+                 TransformerWrapper(include=[],
+                                    transformer=SimpleImputer(strategy='most_frequent')))])
+2024-02-06 10:17:32,917:INFO:Creating final display dataframe.
+2024-02-06 10:17:33,086:INFO:Setup _display_container:                Description                 Value
+0               Session id                   123
+1      Original data shape             (2665, 2)
+2   Transformed data shape             (2665, 2)
+3         Numeric features                     2
+4               Preprocess                  True
+5          Imputation type                simple
+6       Numeric imputation                  mean
+7   Categorical imputation                  mode
+8                 CPU Jobs                    -1
+9                  Use GPU                 False
+10          Log Experiment                 False
+11         Experiment Name  anomaly-default-name
+12                     USI                  495e
+2024-02-06 10:17:33,123:INFO:setup() successfully completed in 0.5s...............
+2024-02-06 10:17:33,125:INFO:Initializing create_model()
+2024-02-06 10:17:33,126:INFO:create_model(self=<pycaret.anomaly.oop.AnomalyExperiment object at 0x7f7b4f562150>, estimator=iforest, num_clusters=4, fraction=0.05, ground_truth=None, round=4, fit_kwargs=None, experiment_custom_tags=None, verbose=True, system=True, add_to_model_list=True, raise_num_clusters=False, display=None, kwargs={})
+2024-02-06 10:17:33,129:INFO:Checking exceptions
+2024-02-06 10:17:33,157:INFO:Importing untrained model
+2024-02-06 10:17:33,160:INFO:Isolation Forest Imported successfully
+2024-02-06 10:17:33,163:INFO:Fitting Model
+2024-02-06 10:17:36,314:INFO:IForest(behaviour='new', bootstrap=False, contamination=0.05,
+    max_features=1.0, max_samples='auto', n_estimators=100, n_jobs=-1,
+    random_state=123, verbose=0)
+2024-02-06 10:17:36,328:INFO:create_models() successfully completed......................................
+2024-02-06 10:17:36,339:INFO:Uploading results into container
+2024-02-06 10:17:36,340:INFO:Uploading model into container now
+2024-02-06 10:17:36,363:INFO:_master_model_container: 1
+2024-02-06 10:17:36,366:INFO:_display_container: 1
+2024-02-06 10:17:36,370:INFO:IForest(behaviour='new', bootstrap=False, contamination=0.05,
+    max_features=1.0, max_samples='auto', n_estimators=100, n_jobs=-1,
+    random_state=123, verbose=0)
+2024-02-06 10:17:36,370:INFO:create_model() successfully completed......................................
+2024-02-06 10:17:36,741:INFO:Initializing assign_model()
+2024-02-06 10:17:36,742:INFO:assign_model(self=<pycaret.anomaly.oop.AnomalyExperiment object at 0x7f7b4f562150>, model=IForest(behaviour='new', bootstrap=False, contamination=0.05,
+    max_features=1.0, max_samples='auto', n_estimators=100, n_jobs=-1,
+    random_state=123, verbose=0), transformation=False, score=True, verbose=True)
+2024-02-06 10:17:36,744:INFO:Checking exceptions
+2024-02-06 10:17:36,745:INFO:Determining Trained Model
+2024-02-06 10:17:36,747:INFO:Trained Model : Isolation Forest
+2024-02-06 10:17:36,759:INFO:Copying data
+2024-02-06 10:17:36,772:INFO:(2665, 4)
+2024-02-06 10:17:36,772:INFO:assign_model() successfully completed......................................
+2024-02-06 12:29:56,334:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 12:29:56,335:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 12:29:56,335:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 12:29:56,336:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 12:30:25,379:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 12:30:25,379:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 12:30:25,379:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 12:30:25,380:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 12:31:09,113:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 12:31:09,114:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 12:31:09,114:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 12:31:09,115:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 15:55:41,412:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 15:55:41,417:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 15:55:41,417:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 15:55:41,417:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 15:55:51,191:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 15:55:51,191:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 15:55:51,192:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 15:55:51,192:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:22:59,968:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:22:59,970:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:22:59,971:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:22:59,971:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:26:44,967:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:26:44,967:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:26:44,968:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:26:44,968:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:27:54,675:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:27:54,676:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:27:54,676:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:27:54,676:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:28:04,431:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:28:04,431:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:28:04,432:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-02-06 16:28:04,432:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.

@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from pycaret.anomaly import *
 import pandas as pd
+from algorithms.dbscan import detect_anomalies_dbscan
 
 app = Flask(__name__)
 
@@ -14,23 +15,20 @@ def detect_anomalies():
 
         # Get JSON data from request
         data = request.json
-        if 'data' not in data or 'thresholds' not in data or 'algorithm' not in data:
-            return jsonify({'error': 'Invalid JSON format. Expected "data", "thresholds", and "algorithm" keys.'}), 300
+        if 'data' not in data or 'algorithm' not in data:
+            return jsonify({'error': 'Invalid JSON format. Expected "data" and "algorithm" keys.'}), 300
 
         # Convert data to DataFrame
         df = pd.DataFrame(data['data'])
 
-        # Initialize the PyCaret anomaly detection module
-        exp_ano101 = setup(df, session_id=123)
-
         # Select anomaly detection algorithm
         algorithm = data['algorithm']
         if algorithm == 'isolation_forest':
-            model = create_model('iforest')
-        elif algorithm == 'k_means':
-            model = create_model('kmeans')
+            anomaly_indices = isolation_forest(df, threshold)
+        elif algorithm == 'SVM':
+            anomaly_indices = svm(df)
         elif algorithm == 'DBSCAN':
-            model = create_model('dbscan')
+            anomaly_indices = dbscan(df)
         else:
             return jsonify({'error': 'Invalid algorithm specified.'}), 600
 
