@@ -1,84 +1,86 @@
-/* style.css */
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
 }
 
 h1 {
-    color: #333333;
+  color: #008ae6;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+h2 {
+  color: #333;
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+table th,
+table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+table th {
+  background-color: #f2f2f2;
 }
 
 .sidebar .sidebar-content {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
-.sidebar .sidebar-content h2 {
-    color: #333333;
-    margin-bottom: 15px;
+.sidebar .sidebar-content .stButton button {
+  background-color: #008ae6;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.sidebar .sidebar-content label {
-    color: #666666;
+.sidebar .sidebar-content .stButton button:hover {
+  background-color: #006bb3;
 }
 
-.main-content {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.sidebar .sidebar-content .stMultiSelect .multiselect-container li a label input[type="checkbox"]:checked + .check-mark {
+  background-color: #008ae6;
+  border-color: #008ae6;
 }
 
-.upload-btn {
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+.sidebar .sidebar-content .stMultiSelect .multiselect-container li a label input[type="checkbox"]:checked + .check-mark:before {
+  border-color: #fff;
 }
 
-.upload-btn:hover {
-    background-color: #0056b3;
+.sidebar .sidebar-content .stMultiSelect .multiselect-container li a label .check-mark:before {
+  border-color: #999;
 }
 
-.upload-btn:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+.sidebar .sidebar-content .stMultiSelect .multiselect-container li a label .check-mark:after {
+  border-color: #fff;
 }
 
-.anomaly-table {
-    width: 100%;
-    border-collapse: collapse;
+.sidebar .sidebar-content .stMultiSelect .multiselect-container li a label .check-mark:after {
+  background-color: #008ae6;
 }
 
-.anomaly-table th, .anomaly-table td {
-    padding: 8px;
-    border: 1px solid #dddddd;
-    text-align: left;
+.sidebar .sidebar-content .stSlider {
+  margin-bottom: 20px;
 }
 
-.anomaly-table th {
-    background-color: #f2f2f2;
+.stPlotlyChart .modebar {
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  border: none;
 }
 
-.anomaly-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+.stPlotlyChart .modebar-btn {
+  background-color: transparent !important;
 }
 
-.anomaly-table tr:hover {
-    background-color: #e5e5e5;
+.stPlotlyChart .modebar-btn svg {
+  fill: #333;
 }
 
-.chart-placeholder {
-    margin-bottom: 20px;
+.stPlotlyChart .modebar-btn:hover {
+  background-color: #ccc !important;
 }
