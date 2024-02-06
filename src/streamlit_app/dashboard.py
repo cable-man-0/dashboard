@@ -20,13 +20,10 @@ def detect_anomalies(data, algorithm, thresholds=None):
     response = requests.post('http://127.0.0.1:5000/detect_anomalies', json={'data': data.to_dict(orient='list'), 'thresholds': thresholds, 'algorithm': algorithm})
     return response
 
-
 # Main function
 def main():
     # Set page title and icon
-    st.set_page_config(
-        page_title="Anomaly Detection App",
-        page_icon="📊")
+    st.set_page_config(page_title="Anomaly Detection App", page_icon="🔍")
 
     # Title and description
     st.title("Anomaly Detection App")
@@ -55,72 +52,48 @@ def main():
 
         # Select graph type
         graph_type = st.sidebar.selectbox("Select Graph Type", ["Line Chart", "Scatter Plot"])
-
         algorithm = st.sidebar.selectbox("Select Anomaly Detection Algorithm", ["isolation_forest","SVM","DBSCAN"])
-        
         selected_features = st.sidebar.multiselect("Select Features for Anomaly Detection", df.columns.tolist())
 
         if algorithm == "isolation_forest":
-            # Select features for anomaly detection
-            # Create threshold sliders for selected features
             thresholds = {}
             for feature in selected_features:
                 thresholds[feature] = st.sidebar.slider(f"Threshold for {feature}", min_value=0.0, max_value=100.0, value=50.0)    
 
         # Confirm button
         if st.sidebar.button("Confirm"):
-                if selected_features:
-                    data=df[selected_features]
-            
-                    if algorithm == "isolation_forest":
-                            # Filter selected features (excluding 'date')
-                            data = df[selected_features]
-                            # Detect anomalies
-                            response = detect_anomalies(data, algorithm,thresholds)
-                    elif (algorithm == "DBSCAN")or (algorithm == "SVM"):
-                        if selected_features:
-                            # Filter selected features (excluding 'date')
-                            data = df[selected_features]
-                            # Detect anomalies
-                            response = detect_anomalies(data,algorithm)
+            if selected_features:
+                data = df[selected_features]
 
-                    if response is not None and response.status_code == 200:
-                        anomaly_indices = response.json()
-                        if anomaly_indices:
-                            st.error("Anomalies detected! See details below.")
-                            st.write("Anomaly Indices:")
-                            st.table(pd.DataFrame({'Index': anomaly_indices}))
-                            total_data_points = len(df)
-                            num_anomalies = len(anomaly_indices)
-                            num_normal_points = total_data_points - num_anomalies
+                if algorithm == "isolation_forest":
+                    # Detect anomalies
+                    response = detect_anomalies(data, algorithm, thresholds)
+                elif algorithm in ["DBSCAN", "SVM"]:
+                    # Detect anomalies
+                    response = detect_anomalies(data, algorithm)
 
-                            labels = ['Normal Points', 'Anomalies']
-                            sizes = [num_normal_points, num_anomalies]
-                            colors = ['skyblue', 'salmon']
-                            explode = (0, 0.1)
-
-                            fig1, ax1 = plt.subplots()
-                            ax1.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
-                            ax1.axis('equal')
-
-                            st.write("Distribution of Anomalies:")
-                            st.pyplot(fig1)
-
-                        else:
-                            st.success("No anomalies detected.")
+                if response is not None and response.status_code == 200:
+                    anomaly_indices = response.json()
+                    if anomaly_indices:
+                        st.info("Anomalies detected! See details below.")
+                        #anomaly_data_points = df.loc[anomaly_indices]
+                        st.subheader("Anomaly Data Points")
+                        st.table(pd.DataFrame({'Index': [idx for idx in anomaly_indices if idx < 0]}))
                     else:
-                        st.error("An error occurred during anomaly detection.")
+                        st.success("No anomalies detected.")
+                else:
+                    st.error("An error occurred during anomaly detection.")
 
-                    # Visualization based on selected graph type
-                    for column in data.columns:
-                        chart_placeholder = st.empty()
+                # Visualization based on selected graph type
+                for column in data.columns:
+                    chart_placeholder = st.empty()
 
-                        if graph_type == "Line Chart":
-                            fig = px.line(df, x='date', y=column) if 'date' in df.columns else px.line(df, x=df.index, y=column)
-                        elif graph_type == "Scatter Plot":
-                            fig = px.scatter(df, x='date', y=column) if 'date' in df.columns else px.scatter(df, x=df.index, y=column)
-                            
-                        chart_placeholder.plotly_chart(fig)
+                    if graph_type == "Line Chart":
+                        fig = px.line(df, x='date', y=column) if 'date' in df.columns else px.line(df, x=df.index, y=column)
+                    elif graph_type == "Scatter Plot":
+                        fig = px.scatter(df, x='date', y=column) if 'date' in df.columns else px.scatter(df, x=df.index, y=column)
+                        
+                    chart_placeholder.plotly_chart(fig)
 
 # Run the app
 if __name__ == "__main__":
