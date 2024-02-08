@@ -18,4 +18,14 @@ use real time data for tesing_anomalies(use 20%) {modify the remaining data add 
 Takes the real time data from the MQTT broker visulize the data and use the trained model to identify anomalies, if the model find an anomaly the dashboard generate alerts(msg,pop-ups,...) to the users.  
 you can also upload a dataset dirctely to the dashboard to detect anomalies.
 
-### benchmark ?
+
+## 4. How to Run :
+### install requirements in requirements.txt
+### run the flask server                    
+```python
+python3 backend.py
+```
+### run the streamlit app                    
+```python
+streamlit run dashboard.py
+```
