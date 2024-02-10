@@ -27,5 +27,5 @@ python3 backend.py
 ```
 ### run the streamlit app                    
 ```python
-streamlit run dashboard.py
+streamlit run main.py
 ```
