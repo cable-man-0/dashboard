@@ -3,7 +3,7 @@ import sqlite3
 import hashlib
 import pandas as pd
 import plotly.express as px
-import numpy as np
+import numpy as np                                              
 import requests
 import matplotlib.pyplot as plt
 import logging
@@ -69,7 +69,7 @@ def create_usertable():
     c.execute('CREATE TABLE IF NOT EXISTS userstable(username TEXT, password TEXT)')
 
 # Add user data
-def add_userdata(username, password, gemini_key, openai_key):
+def add_userdata(username, password):
     c.execute('INSERT INTO userstable(username, password) VALUES (?,?)', (username, password))
     conn.commit()
 
@@ -179,7 +179,7 @@ def main():
                 st.sidebar.title("Parameters")
 
                 # Select graph type
-                graph_type = st.sidebar.selectbox("Select Graph Type", ["Line Chart", "Scatter Plot"])
+                graph_type = st.sidebar.multiselect("Select Graph Type", ["Line Chart", "Scatter Plot"])
                 algorithm = st.sidebar.selectbox("Select Anomaly Detection Algorithm", ["isolation_forest","SVM","DBSCAN"])
                 selected_features = st.sidebar.multiselect("Select Features for Anomaly Detection", df.columns.tolist())
 
@@ -204,35 +204,50 @@ def main():
 
                 # Confirm button
                 if st.sidebar.button("Run Anomaly Detection"):
-                    data = df[selected_features]  # Use selected features directly
-
-                    response = detect_anomalies(data, algorithm, **parameters)
-
-                    if response is not None and response.status_code == 200:
-                        anomaly_indices = response.json()
-                        if anomaly_indices:
-                            st.info("Anomalies detected! See details below.")
-
-                            # Create a DataFrame with original indices and anomaly labels
-                            anomaly_df = pd.DataFrame({'Index': range(len(df)), 'Anomaly': anomaly_indices})
-
-                            # Filter for anomalies (indices less than 0) and display the table
-                            st.subheader("Anomaly Data Points")
-                            st.table(anomaly_df[anomaly_df['Anomaly'] < 0])
+                    with st.spinner("Detecting anomalies..."):
+                        data = df[selected_features]  # Use selected features directly
+    
+                        response = detect_anomalies(data, algorithm, **parameters)
+    
+                        if response is not None and response.status_code == 200:
+                            anomaly_indices = response.json()
+                            if anomaly_indices:
+                                st.info("Anomalies detected! See details below.")
+    
+                                # Create a DataFrame with original indices and anomaly labels
+                                anomaly_df = pd.DataFrame({'Index': range(len(df)), 'Anomaly': anomaly_indices})
+    
+                                # Filter for anomalies (indices less than 0) and display the table
+                                st.subheader("Anomaly Data Points")
+                                st.table(anomaly_df[anomaly_df['Anomaly'] < 0])
+                            else:
+                                st.success("No anomalies detected.")
                         else:
-                            st.success("No anomalies detected.")
-                    else:
-                        st.error("An error occurred during anomaly detection.")
+                            st.error("An error occurred during anomaly detection.")
+                            st.toast("Please check the backend server and try again.")
+    
+
+                            # Determine the number of charts based on the length of graph_type
+                        num_charts = len(graph_type)
+                        # Create columns for multiple charts
+                        chart_rows = st.columns(num_charts)
+                        # Loop through graph_type and chart_rows simultaneously
+                        for chart_type, chart_col in zip(graph_type, chart_rows):
+                            # Loop through columns within each chart
+                            for column in data.columns:
+                                # Add space above the first chart in each subplot
+                                if num_charts > 1 and chart_col is chart_rows[0]:
+                                    chart_col.empty()
+                                # Create chart based on type
+                                if chart_type == "Line Chart":
+                                    fig = px.line(data, x='date', y=column) if 'date' in data.columns else px.line(data, x=data.index, y=column)
+                                elif chart_type == "Scatter Plot":
+                                    fig = px.scatter(data, x='date', y=column) if 'date' in data.columns else px.scatter(data, x=data.index, y=column)
+                                # Display chart and adjust layout (flexible layout recommended)
+                                chart_col.plotly_chart(fig, use_container_width=True)  # Display directly within the loop
 
 
-                    # Visualization based on selected graph type
-                    for column in data.columns:
-                        chart_placeholder = st.empty()
-                        if graph_type == "Line Chart":
-                            fig = px.line(data, x='date', y=column) if 'date' in data.columns else px.line(data, x=data.index, y=column)
-                        elif graph_type == "Scatter Plot":
-                            fig = px.scatter(data, x='date', y=column) if 'date' in data.columns else px.scatter(data, x=data.index, y=column)
-                        chart_placeholder.plotly_chart(fig)
+# Optional steps based on requirements:
         else:
             st.warning("Please login to access this feature 🔐")
     elif choice == "Settings ⚙️":

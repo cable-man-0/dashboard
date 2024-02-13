@@ -1,86 +1,87 @@
+/* Global styles */
 body {
   font-family: Arial, sans-serif;
-}
-
-h1 {
-  color: #008ae6;
-}
-
-h2 {
+  font-size: 16px;
   color: #333;
+  margin: 20px;
 }
 
-table {
-  border-collapse: collapse;
-  margin-top: 10px;
+/* Headings */
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: blue;
 }
 
-table th,
-table td {
-  border: 1px solid #ccc;
-  padding: 8px;
+h2, h3 {
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-table th {
-  background-color: #f2f2f2;
-}
-
-.sidebar .sidebar-content {
+/* Layout */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
   padding: 20px;
 }
 
-.sidebar .sidebar-content .stButton button {
-  background-color: #008ae6;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+/* Sidebar */
+.sidebar {
+  background-color: #f0f0f0;
+  padding: 20px;
 }
 
-.sidebar .sidebar-content .stButton button:hover {
-  background-color: #006bb3;
-}
-
-.sidebar .sidebar-content .stMultiSelect .multiselect-container li a label input[type="checkbox"]:checked + .check-mark {
-  background-color: #008ae6;
-  border-color: #008ae6;
-}
-
-.sidebar .sidebar-content .stMultiSelect .multiselect-container li a label input[type="checkbox"]:checked + .check-mark:before {
-  border-color: #fff;
-}
-
-.sidebar .sidebar-content .stMultiSelect .multiselect-container li a label .check-mark:before {
-  border-color: #999;
-}
-
-.sidebar .sidebar-content .stMultiSelect .multiselect-container li a label .check-mark:after {
-  border-color: #fff;
-}
-
-.sidebar .sidebar-content .stMultiSelect .multiselect-container li a label .check-mark:after {
-  background-color: #008ae6;
-}
-
-.sidebar .sidebar-content .stSlider {
+/* Menu & buttons */
+select {
+  border: 1px solid #ccc;
+  padding: 10px;
   margin-bottom: 20px;
 }
 
-.stPlotlyChart .modebar {
-  background-color: #f2f2f2;
-  border-radius: 5px;
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
   border: none;
+  cursor: pointer;
 }
 
-.stPlotlyChart .modebar-btn {
-  background-color: transparent !important;
+/* Data table */
+table {
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  width: 100%;
 }
 
-.stPlotlyChart .modebar-btn svg {
-  fill: #333;
+th, td {
+  padding: 8px;
+  border: 1px solid #ccc;
 }
 
-.stPlotlyChart .modebar-btn:hover {
-  background-color: #ccc !important;
+/* Forms */
+input[type="text"], textarea {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
 }
+
+/* Anomaly table */
+.anomaly_df {
+  color: red;
+  font-weight: bold;
+}
+
+/* Contact form */
+.form {
+  margin-top: 20px;
+}
+
+input[type="email"], textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* ... Add more specific styles as needed */
