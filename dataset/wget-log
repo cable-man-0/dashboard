@@ -1,6 +1,0 @@
---2024-02-12 21:26:02--  https://ieee-dataport.s3.amazonaws.com/open/15031/iot_intrusion_dataset.zip?response-content-disposition=attachment%3B%20filename%3D%22iot_intrusion_dataset.zip%22
-Resolving ieee-dataport.s3.amazonaws.com (ieee-dataport.s3.amazonaws.com)... 52.217.32.156, 54.231.198.153, 52.217.89.244, ...
-Connecting to ieee-dataport.s3.amazonaws.com (ieee-dataport.s3.amazonaws.com)|52.217.32.156|:443... connected.
-HTTP request sent, awaiting response... 400 Bad Request
-2024-02-12 21:26:03 ERROR 400: Bad Request.
-
