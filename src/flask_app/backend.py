@@ -4,6 +4,7 @@ from algorithms.svm import detect_anomalies_svm
 from algorithms.isolation_forest import detect_anomalies_iforest
 import logging
 import pandas as pd
+from ml_models import predict_34_classes, predict_8_classes, predict_2_classes
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -62,6 +63,46 @@ def detect_anomalies():
     except Exception as e:
         logging.error(f'An error occurred: {str(e)}')
         return jsonify({'error': str(e)}), 500
+    
+@app.route('/predict_34_classes', methods=['POST'])
+def predict_34_classes_route():
+    data = request.get_json()
+    prediction = predict_34_classes(pd.DataFrame(data))
+    return jsonify(prediction.tolist())
+
+@app.route('/predict_8_classes', methods=['POST'])
+def predict_8_classes_route():
+    data = request.get_json()
+    prediction = predict_8_classes(pd.DataFrame(data))
+    return jsonify(prediction.tolist())
+
+@app.route('/predict_2_classes', methods=['POST'])
+def predict_2_classes():
+    try:
+        if request.headers['Content-Type'] != 'application/json':
+            logging.error('Verify the data format is in JSON')
+            return jsonify({'error': 'Invalid content type. Expected JSON data.'}), 400
+        
+        data = request.json  # Parse the JSON data from the request
+        # Ensure that 'data' is a list of dictionaries where each dictionary represents a row of the DataFrame
+        if not isinstance(data, list):
+            raise ValueError("Invalid data format. Expected a list of dictionaries.")
+        
+        # Create DataFrame from the JSON data
+        df = pd.DataFrame(data)
+        
+        # Perform prediction using the DataFrame
+        logging.info('test is true')
+        prediction = predict_2_classes(df)
+        logging.info('Success')
+        
+        # Return prediction as JSON response
+        return jsonify(prediction.tolist()), 200
+    except Exception as e:
+        logging.error(f'An error occurred: {str(e)}')
+        return jsonify({'error': str(e)}), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
