@@ -272,7 +272,7 @@ def main():
                     'IAT', 'rst_count', 'urg_count', 'flow_duration', 'Variance', 'Duration', 'Header_Length', 'Number', 'Weight', 'Rate']
 
                 if st.button("Launch"):
-                    model_34_classes = load("newRandomForest_model_34_classes.joblib")
+                    #model_34_classes = load("newRandomForest_model_34_classes.joblib")
                     model_8_classes = load("newRandomForest_model_8_classes.joblib")
                     model_2_classes = load("newRandomForest_model_2_classes.joblib")
                     # Standardize the data
@@ -281,13 +281,13 @@ def main():
                     new_test_data[X_columns] = scaler.transform(new_test_data[X_columns])
 
                     # Make predictions using the trained model
-                    predictions_34_classes = model_34_classes.predict(new_test_data[X_columns])
+                    #predictions_34_classes = model_34_classes.predict(new_test_data[X_columns])
                     predictions_8_classes = model_8_classes.predict(new_test_data[X_columns])
                     predictions_2_classes = model_2_classes.predict(new_test_data[X_columns])
 
                     # Add predictions to DataFrame
                     new_test_data['predictions_2'] = predictions_2_classes
-                    new_test_data['predictions_34'] = predictions_34_classes
+                    #new_test_data['predictions_34'] = predictions_34_classes
                     new_test_data['predictions_8'] = predictions_8_classes
                     
 
@@ -305,10 +305,10 @@ def main():
                     chart = alt.Chart(chart_data).mark_bar().encode(x='Predicted Class',y='Count')
                     st.altair_chart(chart, use_container_width=True)
 
-                    chart_data = new_test_data['predictions_34'].value_counts().reset_index()
-                    chart_data.columns = ['Predicted Class', 'Count']
-                    chart = alt.Chart(chart_data).mark_bar().encode(x='Predicted Class',y='Count')
-                    st.altair_chart(chart, use_container_width=True)
+                    #chart_data = new_test_data['predictions_34'].value_counts().reset_index()
+                    #chart_data.columns = ['Predicted Class', 'Count']
+                    #chart = alt.Chart(chart_data).mark_bar().encode(x='Predicted Class',y='Count')
+                    #st.altair_chart(chart, use_container_width=True)
         else:
             st.warning("Please login to access this feature 🔐")
 
