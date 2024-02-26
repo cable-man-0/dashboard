@@ -4,105 +4,145 @@ from algorithms.svm import detect_anomalies_svm
 from algorithms.isolation_forest import detect_anomalies_iforest
 import logging
 import pandas as pd
-from ml_models import predict_34_classes, predict_8_classes, predict_2_classes
+import hashlib
+from flask_sqlalchemy import SQLAlchemy
+import sqlite3
+import os
+from datetime import datetime, timedelta
+import uuid
 
 logging.basicConfig(level=logging.DEBUG)
 
+def make_hashes(password):
+    return hashlib.sha256(str.encode(password)).hexdigest()
+
+def check_hashes(hashed_text, password):
+    """Compare a hashed password with a plain text password."""
+    return hashlib.sha256(str.encode(password)).hexdigest() == hashed_text
+
+#db = SQLAlchemy()
+
+
+
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///new_database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    __tablename__ = 'User'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+
+    def __repr__(self):
+        return f"User('{self.username}')"
+
+class Token(db.Model):
+    __tablename__ = 'Token'
+
+    token = db.Column(db.String, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable=False)
+    expiration = db.Column(db.DateTime, nullable=False)
+
+with app.app_context():
+    db.create_all()
+
+def generate_token(user_id):
+    expiration_time = datetime.utcnow() + timedelta(minutes=30)
+    token = str(uuid.uuid4())
+    token_data = {
+        'user_id': user_id,
+        'expiration': expiration_time
+    }
+    db.session.add(Token(token=token, **token_data))
+    db.session.commit()
+    return token
+
+@app.route('/register', methods=['POST'])
+def register():
+    username = request.json['username']
+    password = request.json['password']
+
+    if not username or not password:
+        logging.error('Invalid user input.')
+        return 'Invalid user input.', 400
+
+    user = User.query.filter_by(username=username).first()
+    if user:
+        logging.error(f'Username {username} already exists.')
+        return 'Username already exists.', 409
+
+    hashed_password = make_hashes(password)
+    new_user = User(username=username, password=hashed_password)
+    db.session.add(new_user)
+    db.session.commit()
+
+    logging.info(f'User {username} registered successfully.')
+    return 'User account created successfully.', 201
+
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.json['username']
+    password = request.json['password']
+
+    if not username or not password:
+        logging.error('Invalid user input.')
+        return 'Invalid user input.', 400
+
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        logging.error(f'User {username} not found.')
+        return 'User not found.', 404
+
+    if not check_hashes(user.password, password):
+        logging.error(f'Invalid password for user {username}.')
+        return 'Invalid password.', 401
+
+    token = generate_token(user.id)
+
+    logging.info(f'User {username} logged in successfully.')
+    return jsonify({'token': token}), 200
 
 
-# Endpoint for anomaly detection
+
 @app.route('/detect_anomalies', methods=['POST'])
 def detect_anomalies():
     try:
-        # Check if the content type is JSON
         if request.headers['Content-Type'] != 'application/json':
             logging.error('Verify the data format is in JSON')
             return jsonify({'error': 'Invalid content type. Expected JSON data.'}), 400
 
-        # Get JSON data from request
         data = request.json
         if 'data' not in data or 'algorithm' not in data:
             logging.error('Invalid JSON format. Expected "data" and "algorithm" keys.')
             return jsonify({'error': 'Invalid JSON format. Expected "data" and "algorithm" keys.'}), 400
 
-        # Convert data to DataFrame
         df = pd.DataFrame(data['data'])
-
-        # Select anomaly detection algorithm
         algorithm = data['algorithm']
-        parameters = data.get('parameters', {})  # Extract additional parameters, default to empty dict
+        parameters = data.get('parameters', {})
 
         if algorithm == 'isolation_forest':
-            anomaly_indices = detect_anomalies_iforest(df, **parameters)  # Pass parameters
-            if anomaly_indices is None:
-                logging.error('An error occurred while detecting anomalies with isolation_forest.')
-                return jsonify({'error': 'An error occurred while detecting anomalies with isolation_forest.'}), 500
+            anomaly_indices = detect_anomalies_iforest(df, **parameters)
         elif algorithm == 'SVM':
-            anomaly_indices = detect_anomalies_svm(df, **parameters)  # Pass parameters
-            if anomaly_indices is None:
-                logging.error('An error occurred while detecting anomalies with SVM.')
-                return jsonify({'error': 'An error occurred while detecting anomalies with SVM.'}), 500
+            anomaly_indices = detect_anomalies_svm(df, **parameters)
         elif algorithm == 'DBSCAN':
-            anomaly_indices = detect_anomalies_dbscan(df, **parameters)  # Pass parameters
-            if anomaly_indices is None:
-                logging.error('An error occurred while detecting anomalies with DBSCAN.')
-                return jsonify({'error': 'An error occurred while detecting anomalies with DBSCAN.'}), 500
+            anomaly_indices = detect_anomalies_dbscan(df, **parameters)
         else:
             logging.error('Invalid algorithm specified')
             return jsonify({'error': 'Invalid algorithm specified.'}), 400
 
-        # Check if anomalies are detected
         if anomaly_indices is None:
             logging.error('An error occurred while detecting anomalies.')
             return jsonify({'error': 'An error occurred while detecting anomalies.'}), 500
 
-        # Return anomaly indices
         logging.info('Success')
         return jsonify(anomaly_indices), 200
     except Exception as e:
         logging.error(f'An error occurred: {str(e)}')
         return jsonify({'error': str(e)}), 500
-    
-@app.route('/predict_34_classes', methods=['POST'])
-def predict_34_classes_route():
-    data = request.get_json()
-    prediction = predict_34_classes(pd.DataFrame(data))
-    return jsonify(prediction.tolist())
-
-@app.route('/predict_8_classes', methods=['POST'])
-def predict_8_classes_route():
-    data = request.get_json()
-    prediction = predict_8_classes(pd.DataFrame(data))
-    return jsonify(prediction.tolist())
-
-@app.route('/predict_2_classes', methods=['POST'])
-def predict_2_classes():
-    try:
-        if request.headers['Content-Type'] != 'application/json':
-            logging.error('Verify the data format is in JSON')
-            return jsonify({'error': 'Invalid content type. Expected JSON data.'}), 400
-        
-        data = request.json  # Parse the JSON data from the request
-        # Ensure that 'data' is a list of dictionaries where each dictionary represents a row of the DataFrame
-        if not isinstance(data, list):
-            raise ValueError("Invalid data format. Expected a list of dictionaries.")
-        
-        # Create DataFrame from the JSON data
-        df = pd.DataFrame(data)
-        
-        # Perform prediction using the DataFrame
-        logging.info('test is true')
-        prediction = predict_2_classes(df)
-        logging.info('Success')
-        
-        # Return prediction as JSON response
-        return jsonify(prediction.tolist()), 200
-    except Exception as e:
-        logging.error(f'An error occurred: {str(e)}')
-        return jsonify({'error': str(e)}), 500
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
+    

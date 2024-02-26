@@ -265,7 +265,6 @@ for k,v in preds.items():
     print()
     print()
 
-# Assuming the trained models are stored in ML_models list
 model_34_classes = ML_models[0]  # For the 34-class scenario
 model_8_classes = ML_models[0]   # For the 8-class scenario
 model_2_classes = ML_models[0]   # For the 2-class scenario
