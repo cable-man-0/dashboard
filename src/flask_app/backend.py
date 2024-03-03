@@ -105,7 +105,34 @@ def login():
     logging.info(f'User {username} logged in successfully.')
     return jsonify({'token': token}), 200
 
+@app.route('/update_user', methods=['PUT'])
+def update_user():
+    try:
+        if request.headers['Content-Type'] != 'application/json':
+            logging.error('Verify the data format is in JSON')
+            return jsonify({'error': 'Invalid content type. Expected JSON data.'}), 400
 
+        data = request.get_json()
+        if not data or 'username' not in data or 'password' not in data:
+            logging.error('Invalid JSON format. Expected "username" and "password" keys.')
+            return jsonify({'error': 'Invalid JSON format. Expected "username" and "password" keys.'}), 400
+
+        username = data['username']
+        new_hashed_password = make_hashes(data['password'])
+
+        user = User.query.filter_by(username=username).first()
+        if not user:
+            logging.error(f'User {username} not found.')
+            return jsonify({'error': 'User not found.'}), 404
+
+        user.password = new_hashed_password
+        db.session.commit()
+
+        logging.info(f'User {username} updated successfully.')
+        return jsonify({'message': 'User updated successfully.'}), 200
+    except Exception as e:
+        logging.error(f'An error occurred: {str(e)}')
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/detect_anomalies', methods=['POST'])
 def detect_anomalies():
