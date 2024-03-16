@@ -4,8 +4,14 @@ import plotly.express as px
 import requests
 import logging
 import paho.mqtt.client as mqtt
-import json
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+import json
+
+broker = ""
+port = ""
+topic = ""
+ 
 def load_data(file_path):
     try:
         df = pd.read_csv(file_path)
@@ -18,6 +24,21 @@ def load_data(file_path):
         st.error("Please upload a valid CSV file.")
         return None
 
+def visualize(broker, port, topic):
+    try:
+        payload = {'broker': broker, 'port': port, 'topic': topic}
+        response = requests.post('http://127.0.0.1:5000/subscribe_mqtt_topic', json=payload)
+        
+        if response.status_code == 200:
+            response_data = response.json()
+            payload_data = response_data.get('payload')  # Retrieve the payload from the response
+            return payload_data  # Return the payload data
+        else:
+            logging.error(f"Failed to subscribe to MQTT topic. Status code: {response.status_code}")
+            return None
+    except (requests.exceptions.RequestException, Exception) as e:
+        logging.error(f"An error occurred: {str(e)}")
+        return None   
 
 def detect_anomalies(data, algorithm, **parameters):
 
@@ -101,63 +122,59 @@ def detection_page():
     else:
         st.error("select a file")
 
+
+
+
 def detect():
+    logging.basicConfig(level=logging.INFO)  # Set the logging level to INFO
+    logger = logging.getLogger(__name__)
+
     st.title("Anomaly Detection Dashboard")
     option = st.radio("Choose an option:", ["Upload Dataset", "Connect to MQTT Broker"])
 
     if option == "Upload Dataset":
         detection_page()
     elif option == "Connect to MQTT Broker":
-        st.subheader("MQTT Broker Configuration")
-        broker_address = st.text_input("Broker Address")
-        port = st.number_input("Port", min_value=0, max_value=65535, value=1883)
-        topic = st.text_input("Topic")
-        if st.button("Connect"):
-            visualize_mqtt_data(broker_address, port, topic)
+        with st.form("mqtt_form"):
+            broker = st.text_input("Broker", "localhost")
+            port = st.text_input("Port", "1883")
+            topic = st.text_input("Topic", "topic_name")
+            submit_button = st.form_submit_button("Submit")
+        
+            if submit_button:
+                try:
+                    response = visualize(broker, int(port), topic)
+                    if response is not None:
+                        st.subheader("Data stream")
 
-def on_connect(client, userdata, flags, rc, topic):
-    if rc == 0:
-        st.write("Connected to MQTT Broker")
-        client.subscribe(topic)
-    else:
-        st.write("Failed to connect to MQTT Broker")
+                        if isinstance(response, list):  # Check if response is a list (assuming payload is a list of dictionaries)
+                            # Extract timestamp and payload values
+                            timestamps = []
+                            payload_values = []
+                            for entry in response:
+                                timestamps.append(entry["timestamp"])
+                                payload_values.append(entry["payload"])
 
-def on_message(client, userdata, msg):
-    try:
-        payload = json.loads(msg.payload.decode("utf-8"))
-        timestamp = pd.to_datetime(payload["timestamp"], unit="s")
-        value = payload["value"]
-        data.append((timestamp, value))
-    except Exception as e:
-        st.write("Error parsing MQTT message:", e)
+                            logger.info("Creating scatter plot...")
+                            # Create a scatter plot
+                            fig = go.Figure(data=go.Scatter(x=timestamps, y=payload_values))
+                            fig.update_layout(
+                                title="Payload Visualization",
+                                xaxis_title="Timestamp",
+                                yaxis_title="Payload"
+                            )
+                            st.plotly_chart(fig)
 
-def visualize_mqtt_data(broker_address, port, topic):
-    global data
-    data = []
-
-    client = mqtt.Client(callback_api_version=mqtt.CallbackAPIVersion.VERSION1)
-    client.on_connect = lambda client, userdata, flags, rc: on_connect(client, userdata, flags, rc, topic)
-    client.on_message = on_message
-
-    st.write("Connecting to MQTT Broker...")
-    client.connect(broker_address, port)
-    client.loop_start()
-
-    st.write("Waiting for MQTT messages...")
-
-    while True:
-        if len(data) > 0:
-            df = pd.DataFrame(data, columns=["Timestamp", "Value"])
-            df.set_index("Timestamp", inplace=True)
-
-            st.write("Received MQTT Messages:")
-            st.write(df)
-
-            st.write("Visualizing MQTT Messages:")
-            plt.figure(figsize=(10, 6))
-            plt.plot(df.index, df["Value"], marker='o', linestyle='-')
-            plt.xlabel("Timestamp")
-            plt.ylabel("Value")
-            plt.title("MQTT Message Visualization")
-            st.pyplot(plt)
-            break
+                            logger.info("Displaying response in a table...")
+                            # Display response in a table
+                            st.write("Response:")
+                            st.table(response)
+                        else:
+                            logger.warning("Unexpected response format. Unable to visualize data.")
+                            st.warning("Unexpected response format. Unable to visualize data.")
+                    else:
+                        logger.error("An error occurred during connecting.")
+                        st.error("An error occurred during connecting.")
+                except Exception as e:
+                    logger.error(f"An error occurred during connecting: {str(e)}")
+                    st.error("An error occurred during connecting.")

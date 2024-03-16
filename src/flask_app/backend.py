@@ -6,10 +6,10 @@ import logging
 import pandas as pd
 import hashlib
 from flask_sqlalchemy import SQLAlchemy
-import sqlite3
-import os
 from datetime import datetime, timedelta
 import uuid
+import paho.mqtt.client as mqtt
+import json
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -59,6 +59,28 @@ def generate_token(user_id):
     db.session.add(Token(token=token, **token_data))
     db.session.commit()
     return token
+
+def on_connect(client, userdata, flags, rc, topic):
+    if rc == 0:
+        logging.info(f'Connected successfully with result code {rc}')
+        client.payload = client.subscribe(topic)
+    else:
+        logging.error(f'Connection failed with result code {rc}')
+
+def on_message(client, userdata, msg):
+    payload = str(msg.payload.decode("utf-8"))
+    if payload:
+        try:
+            message_json = json.loads(payload)
+            userdata['payload'] = message_json
+            return message_json
+        except json.JSONDecodeError:
+            logging.warning("Failed to parse payload as JSON.")
+            userdata['payload'] = None
+            return None
+    logging.info("Received payload: %s", payload)
+    return None
+
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -169,6 +191,46 @@ def detect_anomalies():
     except Exception as e:
         logging.error(f'An error occurred: {str(e)}')
         return jsonify({'error': str(e)}), 500
+
+
+
+@app.route('/subscribe_mqtt_topic', methods=['POST'])
+def subscribe_mqtt_topic():
+    try:
+        if request.headers['Content-Type'] != 'application/json':
+            logging.error('Verify the data format is in JSON')
+            return jsonify({'error': 'Invalid content type. Expected JSON data.'}), 400
+
+        data = request.json
+        broker = data["broker"]
+        topic = data["topic"]
+        port = data["port"]
+
+        userdata = {'payload': None}  # Initialize a userdata dictionary
+        
+        client = mqtt.Client()  # Initialize client
+        client.user_data_set(userdata)  # Set the userdata dictionary
+        
+        client.on_connect = lambda client, userdata, flags, rc, topic=topic: on_connect(client, userdata, flags, rc, topic)
+        client.on_message = on_message
+        
+        try:
+            client.connect(broker, port)
+            client.loop_start()  # Start loop in non-blocking mode
+          
+            payload = userdata.get('payload')
+            client.disconnect()  # Disconnect MQTT client
+            
+            return jsonify({'message': 'Successfully subscribed to the MQTT topic.', 'payload': payload}), 200
+        except Exception as e:
+            logging.error(f'An error occurred while connecting to MQTT broker: {str(e)}')
+            return jsonify({'error': f'An error occurred while connecting to MQTT broker: {str(e)}'}), 500
+    except Exception as e:
+        logging.error(f'An error occurred: {str(e)}')
+        return jsonify({'error': str(e)}), 500
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

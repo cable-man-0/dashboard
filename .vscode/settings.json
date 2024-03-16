@@ -8,5 +8,6 @@
     "python.analysis.autoImportCompletions": true,
     "cSpell.words": [
         "joblib"
-    ]
+    ],
+    "CodeGPT.apiKey": "CodeGPT Plus Beta"
 }
